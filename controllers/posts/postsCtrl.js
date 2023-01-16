@@ -1,4 +1,4 @@
-
+postsControllers={
 const pstPostCtrl = async(req, res)=>{
     try {
         res.json({
@@ -21,7 +21,7 @@ const pstGetCtrl = async(req, res)=>{
     }
 }
 
-const pstsGetCtrl = async(req, res)=>{
+pstsGetCtrl = async(req, res)=>{
     try {
         res.json({
             status: 'success',
@@ -32,7 +32,7 @@ const pstsGetCtrl = async(req, res)=>{
     }
 }
 
-const pstDeleteCtrl = async(req, res)=>{
+pstDeleteCtrl :async(req, res)=>{
     try {
         res.json({
             status: 'success',
@@ -43,7 +43,7 @@ const pstDeleteCtrl = async(req, res)=>{
     }
 }
 
-const pstUpdateCtrl = async(req, res)=>{
+pstUpdateCtrl: async(req, res)=>{
     try {
         res.json({
             status: 'success',
@@ -52,4 +52,4 @@ const pstUpdateCtrl = async(req, res)=>{
     } catch (error) {
         res.json(error.message);
     }
-}
+}}

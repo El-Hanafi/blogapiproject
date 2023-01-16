@@ -1,6 +1,7 @@
 
+usersControllers = {
 //Register
-const usrRegisterCtrl = async(req, res)=>{
+usrRegisterCtrl: async(req, res)=>{
     try {
         res.json({
             status: 'success',
@@ -9,10 +10,10 @@ const usrRegisterCtrl = async(req, res)=>{
     } catch (error) {
         res.json(error.message);
     }
-};
+},
 
 //login
-const usrLoginCtrl = async(req, res)=>{
+usrLoginCtrl: async(req, res)=>{
     try {
         res.json({
             status: 'success',
@@ -21,10 +22,9 @@ const usrLoginCtrl = async(req, res)=>{
     } catch (error) {
         res.json(error.message);
     }
-};
-
+},
 //get profile
-const usrProfileCtrl = async(req, res)=>{
+usrProfileCtrl: async(req, res)=>{
     try {
         res.json({
             status: 'success',
@@ -33,10 +33,10 @@ const usrProfileCtrl = async(req, res)=>{
     } catch (error) {
         res.json(error.message);
     }
-};
+},
 
 //get users
-const usrsCtrl = async(req, res)=>{
+usrsCtrl: async(req, res)=>{
     try {
         res.json({
             status: 'success',
@@ -45,10 +45,10 @@ const usrsCtrl = async(req, res)=>{
     } catch (error) {
         res.json(error.message);
     }
-};
+},
 
 //delete user
-const usrDeleteCtrl =  async(req, res)=>{
+usrDeleteCtrl: async(req, res)=>{
     try {
         res.json({
             status: 'success',
@@ -57,9 +57,9 @@ const usrDeleteCtrl =  async(req, res)=>{
     } catch (error) {
         res.json(error.message);
     }
-};
+},
 
-const usrUpdateCtrl = async(req, res)=>{
+usrUpdateCtrl : async(req, res)=>{
     try {
         res.json({
             status: 'success',
@@ -68,15 +68,11 @@ const usrUpdateCtrl = async(req, res)=>{
     } catch (error) {
         res.json(error.message);
     }
-}
+},
+};
 
 
 
-module.exports = {
-    usrRegisterCtrl,
-    usrLoginCtrl,
-    usrProfileCtrl,
-    usrsCtrl,
-    usrDeleteCtrl,
-    usrUpdateCtrl
-}
+
+
+module.exports = usersControllers;

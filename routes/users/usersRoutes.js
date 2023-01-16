@@ -1,27 +1,24 @@
-const express = require('express');
-const { usrRegisterCtrl, usrLoginController,usrProfileCtrl,usrsCtrl, deleteUserCtrl,usrUpdateCtrl } = require('../../controllers/users/usersCtrl');
-
+const express = require("express");
+const usersControllers = require("../../controllers/users/usersCtrl");
 
 const userRouter = express.Router();
 
 //POST/api/v1/users/register
-userRouter.post('/register', usrRegisterCtrl);
+userRouter.post("/register", usersControllers.usrRegisterCtrl);
 
 //POST/api/v1/users/login
-userRouter.post('/login', usrLoginController);
+userRouter.post("/login",  usersControllers.usrLoginCtrl);
 
 //GET/api/v1/users/:id
-userRouter.get('/profile/:id', usrProfileCtrl);
+userRouter.get("/profile/:id",  usersControllers.usrProfileCtrl);
 
 //GET/api/v1/users
-userRouter.get('/', usrsCtrl);
+userRouter.get("/",  usersControllers.usrsCtrl);
 
 //DELETE/api/v1/users/:id
-userRouter.delete('/:id', deleteUserCtrl);
-
+userRouter.delete("/:id",  usersControllers.usrDeleteCtrl);
 
 //PUT/api/v1/users
-userRouter.put('/:id', usrUpdateCtrl);
+userRouter.put("/:id",  usersControllers.usrUpdateCtrl);
 
-
-module.exports = userRouter; 
+module.exports = userRouter;
