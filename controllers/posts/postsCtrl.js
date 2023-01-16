@@ -1,5 +1,5 @@
-postsControllers={
-const pstPostCtrl = async(req, res)=>{
+postsControllers= {
+pstPostCtrl:async(req, res)=>{
     try {
         res.json({
             status: 'success',
@@ -8,9 +8,9 @@ const pstPostCtrl = async(req, res)=>{
     } catch (error) {
         res.json(error.message);
     }
-}
+},
 
-const pstGetCtrl = async(req, res)=>{
+pstGetCtrl:async(req, res)=>{
     try {
         res.json({
             status: 'success',
@@ -19,9 +19,9 @@ const pstGetCtrl = async(req, res)=>{
     } catch (error) {
         res.json(error.message);
     }
-}
+},
 
-pstsGetCtrl = async(req, res)=>{
+pstsGetCtrl: async(req, res)=>{
     try {
         res.json({
             status: 'success',
@@ -30,7 +30,7 @@ pstsGetCtrl = async(req, res)=>{
     } catch (error) {
         res.json(error.message);
     }
-}
+},
 
 pstDeleteCtrl :async(req, res)=>{
     try {
@@ -41,7 +41,7 @@ pstDeleteCtrl :async(req, res)=>{
     } catch (error) {
         res.json(error.message);
     }
-}
+},
 
 pstUpdateCtrl: async(req, res)=>{
     try {
@@ -53,3 +53,5 @@ pstUpdateCtrl: async(req, res)=>{
         res.json(error.message);
     }
 }}
+
+module.exports=postsControllers;

@@ -1,5 +1,5 @@
 const express = require('express');
-const {pstPostCtrl, pstGetCtrl, pstsGetCtrl, pstDeleteCtrl, pstUpdateCtrl} = require('../../controllers/posts/postsCtrl');
+const postsControllers = require('../../controllers/posts/postsCtrl');
 
 const postsRouter = express.Router();
 
@@ -7,19 +7,19 @@ const postsRouter = express.Router();
 //posts route
 //-----------
 //POST/api/v1/posts/
-postsRouter.post('/', pstPostCtrl)
+postsRouter.post('/', postsControllers.pstPostCtrl)
 
 //GET/api/v1/posts/:id
-postsRouter.get('/:id', pstGetCtrl)
+postsRouter.get('/:id',  postsControllers.pstGetCtrl)
 
 //GET/api/v1/posts
-postsRouter.get('/', pstsGetCtrl)
+postsRouter.get('/',  postsControllers.pstsGetCtrl)
 
 //DELETE/api/v1/posts/:id
-postsRouter.delete('/:id', pstDeleteCtrl)
+postsRouter.delete('/:id',  postsControllers.pstDeleteCtrl)
 
 
 //PUT/api/v1/posts/:id
-postsRouter.put('/:id', pstUpdateCtrl)
+postsRouter.put('/:id',  postsControllers.pstUpdateCtrl)
 
 module.exports = postsRouter;
