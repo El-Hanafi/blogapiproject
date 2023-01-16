@@ -1,5 +1,5 @@
 const express = require('express');
-
+const categoriesController = resuire('../../controllers/categories/categoriesCtrl');
 
 const categoriesRouter = express.Router();
 
@@ -8,64 +8,19 @@ const categoriesRouter = express.Router();
 //------------------
 
 //POST/api/v1/categories
-categoriesRouter.post('/', async(req, res)=>{
-    try {
-        res.json({
-            status: 'success',
-            data: 'categoriy created'
-        })
-    } catch (error) {
-        res.json(error.message);
-    }
-})
+categoriesRouter.post('/', categoriesController.ctgrPostCtrl)
 
 //GET/api/v1/comments/:id
-categoriesRouter.get('/:id', async(req, res)=>{
-    try {
-        res.json({
-            status: 'success',
-            data: 'get category by id route'
-        })
-    } catch (error) {
-        res.json(error.message);
-    }
-})
+categoriesRouter.get('/:id', categoriesController.ctgrGetCtrl)
 
 //GET/api/v1/users
-categoriesRouter.get('/', async(req, res)=>{
-    try {
-        res.json({
-            status: 'success',
-            data: 'get categories route'
-        })
-    } catch (error) {
-        res.json(error.message);
-    }
-})
+categoriesRouter.get('/', categoriesController.ctgrsGetCtrl)
 
 //DELETE/api/v1/posts/:id
-categoriesRouter.delete('/:id', async(req, res)=>{
-    try {
-        res.json({
-            status: 'success',
-            data: 'delete category route'
-        })
-    } catch (error) {
-        res.json(error.message);
-    }
-})
+categoriesRouter.delete('/:id', categoriesController.ctgrDeleteCtrl)
 
 
 //PUT/api/v1/categories/:id
-categoriesRouter.put('/:id', async(req, res)=>{
-    try {
-        res.json({
-            status: 'success',
-            data: 'update category route'
-        })
-    } catch (error) {
-        res.json(error.message);
-    }
-})
+categoriesRouter.put('/:id', categoriesController.ctgrUpdateCtrl)
 
 module.exports = categoriesRouter;

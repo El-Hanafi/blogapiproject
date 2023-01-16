@@ -1,27 +1,27 @@
-commentsControllers= {
-    cmntPostCtrl:async(req, res)=>{
+categoriesControllers= {
+    ctgrPostCtrl:async(req, res)=>{
         try {
             res.json({
                 status: 'success',
-                data: 'comment created'
+                data: 'category created'
             })
         } catch (error) {
             res.json(error.message);
         }
     },
     
-    cmntGetCtrl:async(req, res)=>{
+    ctgrGetCtrl:async(req, res)=>{
         try {
             res.json({
                 status: 'success',
-                data: 'get comment by id route'
+                data: 'get category by id route'
             })
         } catch (error) {
             res.json(error.message);
         }
     },
     
-    cmntsGetCtrl: async(req, res)=>{
+    ctgrsGetCtrl: async(req, res)=>{
         try {
             res.json({
                 status: 'success',
@@ -32,26 +32,26 @@ commentsControllers= {
         }
     },
     
-    cmntDeleteCtrl :async(req, res)=>{
+    ctgrDeleteCtrl :async(req, res)=>{
         try {
             res.json({
                 status: 'success',
-                data: 'delete comment route'
+                data: 'delete category route'
             })
         } catch (error) {
             res.json(error.message);
         }
     },
     
-    cmntUpdateCtrl: async(req, res)=>{
+    ctgrUpdateCtrl: async(req, res)=>{
         try {
             res.json({
                 status: 'success',
-                data: 'update comments route'
+                data: 'update categories route'
             })
         } catch (error) {
             res.json(error.message);
         }
     }}
     
-    module.exports=commentsControllers;
+    module.exports=categoriesControllers;
