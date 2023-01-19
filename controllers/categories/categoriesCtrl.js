@@ -25,7 +25,7 @@ categoriesControllers= {
         try {
             res.json({
                 status: 'success',
-                data: 'get comments route'
+                data: 'get categories route'
             })
         } catch (error) {
             res.json(error.message);

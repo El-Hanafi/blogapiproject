@@ -23,7 +23,7 @@ const BlogUserSchema = new mongoose.Schema({
         required: [true, 'Password name is required']
     },
     postCount: {
-        type: number,
+        type: Number,
         default: 0,
     },
     isBlocked: {

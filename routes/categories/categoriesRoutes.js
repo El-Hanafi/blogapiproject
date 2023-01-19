@@ -1,5 +1,5 @@
 const express = require('express');
-const categoriesController = resuire('../../controllers/categories/categoriesCtrl');
+const categoriesController = require('../../controllers/categories/categoriesCtrl');
 
 const categoriesRouter = express.Router();
 

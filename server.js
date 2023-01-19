@@ -8,7 +8,28 @@ require('dotenv').config();
 require('./config/dbConnect');
 const app =express();
 
+//----------
 //middlewares
+//----------
+app.use(express.json()) //pass incoming payload
+
+// const userAuth = {
+//     isLogin: true,
+//     isAdmin: false,
+// };
+
+// app.use((req,res, next)=>{
+//     if(userAuth.isLogin){
+//         next();
+//     } else {
+//         return res.json({msg:'Invalid login credentials'})
+//     }
+// });
+
+
+
+
+
 //----------
 //routes
 //-----------
