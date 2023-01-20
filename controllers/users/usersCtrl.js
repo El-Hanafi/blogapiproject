@@ -1,4 +1,7 @@
+const bcrypt = require('bcryptjs');
 const User = require("../../model/BlogUser/BlogUser");
+const generateToken = require('../../utils/generateToken');
+const getTokenFromHeader = require('../../utils/getTokenFromHeader');
 
 usersControllers = {
   //Register
@@ -14,13 +17,15 @@ usersControllers = {
       }
 
       //Password hashing
-
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(password,salt);
+      
       //create the user
       const user = await User.create({
         firstname,
         lastname,
         email,
-        password,
+        password: hashedPassword,
       });
       res.json({
         status: "success",
@@ -33,10 +38,33 @@ usersControllers = {
 
   //login
   usrLoginCtrl: async (req, res) => {
+    const  {email, password} = req.body
     try {
+        //check if email exists
+        const userFound = await User.findOne({email});
+        if(!userFound) {
+            return res.json({
+                msg: "Invalid login credentials"
+            });
+        }
+
+        const isPasswordMatched = await bcrypt.compare(password, userFound.password);
+
+        if(!isPasswordMatched) {
+            return res.json({
+                msg: "Invalid login credentials"
+            });
+        }
+
       res.json({
         status: "success",
-        data: "user logged in",
+        data: {
+          firstname: userFound.firstname,
+          lastname: userFound.lastname,
+          email: userFound.email,
+          isAdmin: userFound.isAdmin,
+          token: generateToken(userFound._id)
+        },
       });
     } catch (error) {
       res.json(error.message);
@@ -44,10 +72,15 @@ usersControllers = {
   },
   //get profile
   usrProfileCtrl: async (req, res) => {
+    const {id} = req.params ;
     try {
+      const token = getTokenFromHeader(req);
+      console.log(token);
+
+      const user = await User.findById(id);
       res.json({
         status: "success",
-        data: "profile route",
+        data: user,
       });
     } catch (error) {
       res.json(error.message);
