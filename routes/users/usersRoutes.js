@@ -1,5 +1,6 @@
 const express = require("express");
 const usersControllers = require("../../controllers/users/usersCtrl");
+const isLoggedin = require("../../middlewares/isLoggedin");
 
 const userRouter = express.Router();
 
@@ -10,7 +11,7 @@ userRouter.post("/register", usersControllers.usrRegisterCtrl);
 userRouter.post("/login",  usersControllers.usrLoginCtrl);
 
 //GET/api/v1/users/:id
-userRouter.get("/profile/:id",  usersControllers.usrProfileCtrl);
+userRouter.get("/profile/", isLoggedin, usersControllers.usrProfileCtrl);
 
 //GET/api/v1/users
 userRouter.get("/",  usersControllers.usrsCtrl);

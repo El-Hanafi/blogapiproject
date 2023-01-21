@@ -3,6 +3,7 @@ const usersRouter = require('./routes/users/usersRoutes');
 const postsRouter = require('./routes/posts/postsRoutes');
 const commentsRouter = require('./routes/comments/commentsRoutes');
 const categoriesRouter = require('./routes/categories/categoriesRoutes');
+const globalErrHandler = require('./middlewares/globalErrHandler');
 
 require('dotenv').config();
 require('./config/dbConnect');
@@ -47,8 +48,14 @@ app.use('/api/v1/categories', categoriesRouter);
 
 
 //Error handlers middleware
+app.use(globalErrHandler);
 
-
+//404 error
+app.use('*',(req, res)=>{
+    res.status(404).json({
+        message: `${req.originalUrl}Route Not Found`
+    })
+});
 //Listen to serer 
 const PORT = process.env.PORT || 9000 ;
 

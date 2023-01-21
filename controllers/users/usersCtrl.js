@@ -1,19 +1,18 @@
 const bcrypt = require('bcryptjs');
 const User = require("../../model/BlogUser/BlogUser");
+const {appErr,AppErr} = require('../../utils/appErr');
 const generateToken = require('../../utils/generateToken');
 const getTokenFromHeader = require('../../utils/getTokenFromHeader');
 
 usersControllers = {
   //Register
-  usrRegisterCtrl: async (req, res) => {
+  usrRegisterCtrl: async (req, res, next) => {
     const { firstname, lastname, profilePhoto, email, password } = req.body;
     try {
       //checking if email exists
       const userFound = await User.findOne({ email });
       if (userFound) {
-        return res.json({
-          msg: "User with this email already exists",
-        });
+        return next(appErr("User with this email already exists",500));
       }
 
       //Password hashing
@@ -32,7 +31,7 @@ usersControllers = {
         data: user,
       });
     } catch (error) {
-      res.json(error.message);
+      next(appErr(error.message));
     }
   },
 
@@ -72,12 +71,10 @@ usersControllers = {
   },
   //get profile
   usrProfileCtrl: async (req, res) => {
-    const {id} = req.params ;
-    try {
-      const token = getTokenFromHeader(req);
-      console.log(token);
 
-      const user = await User.findById(id);
+
+    try {
+      const user = await User.findById(req.userAuth);
       res.json({
         status: "success",
         data: user,
