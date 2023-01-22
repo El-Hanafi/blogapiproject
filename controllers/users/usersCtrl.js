@@ -1,8 +1,8 @@
-const bcrypt = require('bcryptjs');
+const bcrypt = require("bcryptjs");
 const User = require("../../model/BlogUser/BlogUser");
-const {appErr,AppErr} = require('../../utils/appErr');
-const generateToken = require('../../utils/generateToken');
-const getTokenFromHeader = require('../../utils/getTokenFromHeader');
+const { appErr, AppErr } = require("../../utils/appErr");
+const generateToken = require("../../utils/generateToken");
+const getTokenFromHeader = require("../../utils/getTokenFromHeader");
 
 usersControllers = {
   //Register
@@ -12,13 +12,13 @@ usersControllers = {
       //checking if email exists
       const userFound = await User.findOne({ email });
       if (userFound) {
-        return next(appErr("User with this email already exists",500));
+        return next(appErr("User with this email already exists", 500));
       }
 
       //Password hashing
       const salt = await bcrypt.genSalt(10);
-      const hashedPassword = await bcrypt.hash(password,salt);
-      
+      const hashedPassword = await bcrypt.hash(password, salt);
+
       //create the user
       const user = await User.create({
         firstname,
@@ -37,23 +37,26 @@ usersControllers = {
 
   //login
   usrLoginCtrl: async (req, res) => {
-    const  {email, password} = req.body
+    const { email, password } = req.body;
     try {
-        //check if email exists
-        const userFound = await User.findOne({email});
-        if(!userFound) {
-            return res.json({
-                msg: "Invalid login credentials"
-            });
-        }
+      //check if email exists
+      const userFound = await User.findOne({ email });
+      if (!userFound) {
+        return res.json({
+          msg: "Invalid login credentials",
+        });
+      }
 
-        const isPasswordMatched = await bcrypt.compare(password, userFound.password);
+      const isPasswordMatched = await bcrypt.compare(
+        password,
+        userFound.password
+      );
 
-        if(!isPasswordMatched) {
-            return res.json({
-                msg: "Invalid login credentials"
-            });
-        }
+      if (!isPasswordMatched) {
+        return res.json({
+          msg: "Invalid login credentials",
+        });
+      }
 
       res.json({
         status: "success",
@@ -62,7 +65,7 @@ usersControllers = {
           lastname: userFound.lastname,
           email: userFound.email,
           isAdmin: userFound.isAdmin,
-          token: generateToken(userFound._id)
+          token: generateToken(userFound._id),
         },
       });
     } catch (error) {
@@ -71,8 +74,6 @@ usersControllers = {
   },
   //get profile
   usrProfileCtrl: async (req, res) => {
-
-
     try {
       const user = await User.findById(req.userAuth);
       res.json({
@@ -120,16 +121,43 @@ usersControllers = {
   },
 
   prflPhotoUploadCtrl: async (req, res) => {
-    console.log(req.file);
     try {
-      res.json({
-        status: "success",
-        data: "Profile photo Upload",
-      });
+      //1. Find user to be updated
+      const userToUpdate = await User.findById(req.userAuth);
+
+      //2. Check if user is found
+      if (!userToUpdate) {
+        return next(appErr("User not found", 404));
+      }
+
+      //3. Check if user is blocked
+      if (userToUpdate.isBlocked) {
+        return next(appErr("Action not allowed, your account is blocked", 404));
+      }
+
+      //4. Check if user is updating their photo
+      if (req.file) {
+        //5. Update profile photo
+        await User.findByIdAndUpdate(
+          req.userAuth,
+          {
+            $set: {
+              profilePhoto: req.file.path,
+            },
+          },
+          {
+            new: true,
+          }
+        );
+        res.json({
+          status: "success",
+          data: "You have successfully updated your profile photo",
+        });
+      }
     } catch (error) {
-      res.json(error.message);
+      next(appErr(error.message, 500));
     }
-  }, 
+  },
 };
 
 module.exports = usersControllers;
