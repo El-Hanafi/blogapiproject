@@ -118,6 +118,17 @@ usersControllers = {
       res.json(error.message);
     }
   },
+
+  prflPhotoUploadCtrl: async (req, res) => {
+    try {
+      res.json({
+        status: "success",
+        data: "Profile photo Upload",
+      });
+    } catch (error) {
+      res.json(error.message);
+    }
+  }, 
 };
 
 module.exports = usersControllers;

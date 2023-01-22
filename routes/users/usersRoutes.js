@@ -22,4 +22,7 @@ userRouter.delete("/:id",  usersControllers.usrDeleteCtrl);
 //PUT/api/v1/users
 userRouter.put("/:id",  usersControllers.usrUpdateCtrl);
 
+//POST/api/v1/profile-photo-upload
+userRouter.post("/profile-photo-upload",  usersControllers.prflPhotoUploadCtrl);
+
 module.exports = userRouter;
