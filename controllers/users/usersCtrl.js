@@ -120,6 +120,7 @@ usersControllers = {
   },
 
   prflPhotoUploadCtrl: async (req, res) => {
+    console.log(req.file);
     try {
       res.json({
         status: "success",

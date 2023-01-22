@@ -1,8 +1,12 @@
 const express = require("express");
 const usersControllers = require("../../controllers/users/usersCtrl");
 const isLoggedin = require("../../middlewares/isLoggedin");
+const multer = require('multer');
 
 const userRouter = express.Router();
+
+//instance of multer 
+const upload = multer({storage});
 
 //POST/api/v1/users/register
 userRouter.post("/register", usersControllers.usrRegisterCtrl);
@@ -23,6 +27,6 @@ userRouter.delete("/:id",  usersControllers.usrDeleteCtrl);
 userRouter.put("/:id",  usersControllers.usrUpdateCtrl);
 
 //POST/api/v1/profile-photo-upload
-userRouter.post("/profile-photo-upload",  usersControllers.prflPhotoUploadCtrl);
+userRouter.post("/profile-photo-upload", upload.single('profile'),  usersControllers.prflPhotoUploadCtrl);
 
 module.exports = userRouter;
